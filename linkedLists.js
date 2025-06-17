@@ -107,8 +107,19 @@ class LinkedList {
 
   find(value) {
     // returns the index of the node containing value, or null if not found.
+
     let temp = this.head;
     let i = 0;
+
+    if (value instanceof Object) {
+      // To allow a better use for the hashmap
+      while (temp !== null) {
+        if (temp.value.key === value) return i;
+        i++;
+        temp = temp.nextNode;
+      }
+      return null;
+    }
     while (temp !== null) {
       if (temp.value === value) return i;
       i++;
@@ -178,6 +189,7 @@ class LinkedList {
     this.#decreaseSize();
     return deletedNode;
   }
+
   toString() {
     if (this.head === null) return `( null )`;
 
@@ -194,25 +206,4 @@ class LinkedList {
   }
 }
 
-const list = new LinkedList();
-list.append("dog");
-list.append("cat");
-list.append("parrot");
-list.append("hamster");
-list.append("snake");
-list.append("turtle");
-
-list.prepend("mouse");
-
-console.log(list.size);
-// console.log(list.at(0));
-
-// console.log(list.pop());
-// console.log(list.contains("hamster"));
-// console.log(list.find("mouse"));
-
-list.insertAt("cow", 0);
-console.log(list.toString());
-
-list.removeAt(3);
-console.log(list.toString());
+export default LinkedList;
